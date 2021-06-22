@@ -4,8 +4,6 @@ import com.example.UserManagementSpringBoot.model.User;
 import com.example.UserManagementSpringBoot.model.dto.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.springframework.stereotype.Service;
 
 @Service

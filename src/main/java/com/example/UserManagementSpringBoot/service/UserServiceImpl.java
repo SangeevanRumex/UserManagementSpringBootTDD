@@ -27,11 +27,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository, CourseRepository courseRepository, UserMapper userMapper, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, CourseRepository courseRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.courseRepository = courseRepository;
         this.userMapper = userMapper;
-        this.modelMapper = modelMapper;
     }
 
     @Override
