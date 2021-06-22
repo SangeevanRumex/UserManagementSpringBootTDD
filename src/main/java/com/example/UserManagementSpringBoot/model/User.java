@@ -27,6 +27,17 @@ public class User {
         followedCourses.add(course);
     }
 
+    public User() {
+    }
+
+    public User(int id, String userName, String city, boolean deleted, Set<Course> followedCourses) {
+        this.id = id;
+        this.userName = userName;
+        this.city = city;
+        this.deleted = deleted;
+        this.followedCourses = followedCourses;
+    }
+
     public int getId() {
         return id;
     }

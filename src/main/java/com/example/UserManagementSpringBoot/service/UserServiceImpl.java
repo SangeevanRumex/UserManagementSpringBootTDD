@@ -1,5 +1,6 @@
 package com.example.UserManagementSpringBoot.service;
 
+import com.example.UserManagementSpringBoot.mapper.UserMapper;
 import com.example.UserManagementSpringBoot.model.Course;
 import com.example.UserManagementSpringBoot.model.User;
 import com.example.UserManagementSpringBoot.model.dto.UserDto;
@@ -22,6 +23,16 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    public UserServiceImpl(UserRepository userRepository, CourseRepository courseRepository, UserMapper userMapper, ModelMapper modelMapper) {
+        this.userRepository = userRepository;
+        this.courseRepository = courseRepository;
+        this.userMapper = userMapper;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public boolean addUser(UserDto userDto){
@@ -59,7 +70,7 @@ public class UserServiceImpl implements UserService {
     public UserDto getUserById(int id) {
         User oldUser = userRepository.getUserById(id);
         if(oldUser!=null) {
-            return convertToDto(userRepository.getUserById(id));
+            return userMapper.convertToDto(userRepository.getUserById(id));
         }
         return null;
     }
@@ -77,6 +88,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserDto convertToDto(User user) {
+
         UserDto userDto = modelMapper.map(user, UserDto.class);
         return userDto;
     }

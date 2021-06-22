@@ -8,6 +8,16 @@ public class UserDto {
     private String city;
     private Set<CourseDto> followedCourses;
 
+    public UserDto() {
+    }
+
+    public UserDto(int id, String userName, String city, Set<CourseDto> followedCourses) {
+        this.id = id;
+        this.userName = userName;
+        this.city = city;
+        this.followedCourses = followedCourses;
+    }
+
     public int getId() {
         return id;
     }

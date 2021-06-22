@@ -1,5 +1,6 @@
 package com.example.UserManagementSpringBoot.controller;
 
+import com.example.UserManagementSpringBoot.model.User;
 import com.example.UserManagementSpringBoot.model.dto.UserDto;
 import com.example.UserManagementSpringBoot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
