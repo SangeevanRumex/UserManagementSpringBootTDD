@@ -16,15 +16,16 @@ public class UserServiceTest {
     private UserRepository userRepository = Mockito.mock(UserRepository.class);
     private CourseRepository courseRepository = Mockito.mock(CourseRepository.class);
 
+    ModelMapper modelMapper = new ModelMapper();
+    UserMapper userMapper = new UserMapper(modelMapper);
+
+    UserServiceImpl userServiceImpl = new UserServiceImpl(userRepository,courseRepository,userMapper);
+
     @Test
     void testGetUserById() {
-        ModelMapper modelMapper = new ModelMapper();
-        UserMapper userMapper = new UserMapper(modelMapper);
-        UserServiceImpl userServiceImpl = new UserServiceImpl(userRepository,courseRepository,userMapper);
-        User user = new User(1,"Sangee","Colombo",false,null);
+        User requestedUser = new User(1,"Sangee","Colombo",false,null);
         UserDto expectedUser = new UserDto(1,"Sangee","Colombo",null);
-        Mockito.when(userRepository.getUserById(1)).thenReturn(user);
-
+        Mockito.when(userRepository.getUserById(1)).thenReturn(requestedUser);
         UserDto responseUser = userServiceImpl.getUserById(1);
 
         assertThat(responseUser).isEqualToComparingFieldByFieldRecursively(expectedUser);

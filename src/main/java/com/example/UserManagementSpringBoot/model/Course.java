@@ -20,6 +20,16 @@ public class Course {
     @ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "followedCourses")
     private Set<User> follows = new HashSet<>();
 
+    public Course() {
+    }
+
+    public Course(int id, String courseName, int fee, boolean deleted) {
+        this.id = id;
+        this.courseName = courseName;
+        this.fee = fee;
+        this.deleted = deleted;
+    }
+
     public int getId() {
         return id;
     }

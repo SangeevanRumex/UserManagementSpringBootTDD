@@ -6,7 +6,6 @@ import com.example.UserManagementSpringBoot.model.User;
 import com.example.UserManagementSpringBoot.model.dto.UserDto;
 import com.example.UserManagementSpringBoot.repository.CourseRepository;
 import com.example.UserManagementSpringBoot.repository.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,9 +21,6 @@ public class UserServiceImpl implements UserService {
     private CourseRepository courseRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private UserMapper userMapper;
 
     public UserServiceImpl(UserRepository userRepository, CourseRepository courseRepository, UserMapper userMapper) {
@@ -35,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(UserDto userDto){
-        userRepository.save(convertFromDto(userDto));
+        userRepository.save(userMapper.convertFromDto(userDto));
         return true;
     }
 
@@ -43,7 +39,7 @@ public class UserServiceImpl implements UserService {
     public boolean updateUser(UserDto userDto) {
         User oldUser = userRepository.getUserById(userDto.getId());
         if(oldUser!=null){
-            userRepository.save(convertFromDto(userDto));
+            userRepository.save(userMapper.convertFromDto(userDto));
             return true;
         }
         return false;
@@ -62,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getUsers() {
         List<User> users = userRepository.getUsers();
-        return users.stream().map(this::convertToDto).collect(Collectors.toList());
+        return users.stream().map(userMapper::convertToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -84,16 +80,5 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
-    }
-
-    public UserDto convertToDto(User user) {
-
-        UserDto userDto = modelMapper.map(user, UserDto.class);
-        return userDto;
-    }
-
-    public User convertFromDto(UserDto userDto) {
-        User user = modelMapper.map(userDto, User.class);
-        return user;
     }
 }

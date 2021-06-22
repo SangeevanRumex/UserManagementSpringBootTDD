@@ -1,9 +1,9 @@
 package com.example.UserManagementSpringBoot.service;
 
+import com.example.UserManagementSpringBoot.mapper.CourseMapper;
 import com.example.UserManagementSpringBoot.model.Course;
 import com.example.UserManagementSpringBoot.model.dto.CourseDto;
 import com.example.UserManagementSpringBoot.repository.CourseRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,11 +16,16 @@ public class CourseServiceImpl implements CourseService{
     private CourseRepository courseRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private CourseMapper courseMapper;
+
+    public CourseServiceImpl(CourseRepository courseRepository, CourseMapper courseMapper) {
+        this.courseRepository = courseRepository;
+        this.courseMapper = courseMapper;
+    }
 
     @Override
     public boolean addCourse(CourseDto courseDto) {
-        courseRepository.save(convertFromDto(courseDto));
+        courseRepository.save(courseMapper.convertFromDto(courseDto));
         return true;
     }
 
@@ -28,7 +33,7 @@ public class CourseServiceImpl implements CourseService{
     public boolean updateCourse(CourseDto courseDto) {
         Course oldCourse = courseRepository.getCourseById(courseDto.getId());
         if(oldCourse!=null){
-            courseRepository.save(convertFromDto(courseDto));
+            courseRepository.save(courseMapper.convertFromDto(courseDto));
             return true;
         }
         return false;
@@ -47,25 +52,15 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public List<CourseDto> getCourses() {
         List<Course> courses = courseRepository.getCourses();
-        return courses.stream().map(this::convertToDto).collect(Collectors.toList());
+        return courses.stream().map(courseMapper::convertToDto).collect(Collectors.toList());
     }
 
     @Override
     public CourseDto getCourseById(int id) {
         Course oldCourse = courseRepository.getCourseById(id);
         if(oldCourse!=null) {
-            return convertToDto(courseRepository.getCourseById(id));
+            return courseMapper.convertToDto(courseRepository.getCourseById(id));
         }
         return null;
-    }
-
-    public CourseDto convertToDto(Course course) {
-        CourseDto courseDto = modelMapper.map(course, CourseDto.class);
-        return courseDto;
-    }
-
-    public Course convertFromDto(CourseDto courseDto) {
-        Course course = modelMapper.map(courseDto, Course.class);
-        return course;
     }
 }
