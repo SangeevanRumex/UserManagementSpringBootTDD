@@ -23,8 +23,8 @@ public class UserServiceTest {
 
     @Test
     void testGetUserById() {
-        User requestedUser = new User(1,"Sangee","Colombo",false,null);
-        UserDto expectedUser = new UserDto(1,"Sangee","Colombo",null);
+        User requestedUser = new User(1,"Sangeevan","Colombo",false,null);
+        UserDto expectedUser = new UserDto(1,"Sangeevan","Colombo",null);
         Mockito.when(userRepository.getUserById(1)).thenReturn(requestedUser);
         UserDto responseUser = userServiceImpl.getUserById(1);
 
