@@ -28,7 +28,8 @@ class UserRepositoryTest {
 
     @Test
     void getUserById(){
-        User gotUser = userRepository.getUserById(1);
+        int id = userRepository.getUsers().get(0).getId();
+        User gotUser = userRepository.getUserById(id);
         assertThat(gotUser).usingRecursiveComparison().ignoringFields("id","deleted","follows").isEqualTo(user);
     }
 
@@ -41,8 +42,9 @@ class UserRepositoryTest {
     @Test
     @AfterAll
     void deleteUser(){
-        userRepository.deleteUser(1);
-        User gotUser = userRepository.getUserById(1);
+        int id = userRepository.getUsers().get(0).getId();
+        userRepository.deleteUser(id);
+        User gotUser = userRepository.getUserById(id);
         assertThat(gotUser).usingRecursiveComparison().ignoringFields("id","deleted","follows").isEqualTo(null);
     }
 }

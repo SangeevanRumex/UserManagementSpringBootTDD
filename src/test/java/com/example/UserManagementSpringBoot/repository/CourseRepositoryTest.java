@@ -31,7 +31,8 @@ class CourseRepositoryTest {
 
     @Test
     void getCourseById(){
-        Course gotCourse = courseRepository.getCourseById(1);
+        int id = courseRepository.getCourses().get(0).getId();
+        Course gotCourse = courseRepository.getCourseById(id);
         assertThat(gotCourse).usingRecursiveComparison().ignoringFields("id","deleted").isEqualTo(course);
     }
 
@@ -44,8 +45,9 @@ class CourseRepositoryTest {
     @Test
     @AfterAll
     void deleteCourse(){
-        courseRepository.deleteCourse(1);
-        Course gotCourse = courseRepository.getCourseById(1);
+        int id = courseRepository.getCourses().get(0).getId();
+        courseRepository.deleteCourse(id);
+        Course gotCourse = courseRepository.getCourseById(id);
         assertThat(gotCourse).usingRecursiveComparison().ignoringFields("id","deleted").isEqualTo(null);
     }
 }
