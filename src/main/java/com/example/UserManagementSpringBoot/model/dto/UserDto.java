@@ -8,12 +8,12 @@ public class UserDto {
     private int id;
     private String userName;
     private String city;
-    private Set<Follows> follows;
+    private Set<FollowsDto> follows;
 
     public UserDto() {
     }
 
-    public UserDto(int id, String userName, String city, Set<Follows> follows) {
+    public UserDto(int id, String userName, String city, Set<FollowsDto> follows) {
         this.id = id;
         this.userName = userName;
         this.city = city;
@@ -44,11 +44,11 @@ public class UserDto {
         this.city = city;
     }
 
-    public Set<Follows> getfollows() {
+    public Set<FollowsDto> getfollows() {
         return follows;
     }
 
-    public void setfollows(Set<Follows> follows) {
+    public void setfollows(Set<FollowsDto> follows) {
         this.follows = follows;
     }
 }
