@@ -2,6 +2,7 @@ package com.example.UserManagementSpringBoot.service;
 
 import com.example.UserManagementSpringBoot.mapper.UserMapper;
 import com.example.UserManagementSpringBoot.model.Course;
+import com.example.UserManagementSpringBoot.model.Follows;
 import com.example.UserManagementSpringBoot.model.User;
 import com.example.UserManagementSpringBoot.model.dto.UserDto;
 import com.example.UserManagementSpringBoot.repository.CourseRepository;
@@ -74,7 +75,8 @@ public class UserServiceImpl implements UserService {
     public boolean followCourse(int userId, int courseId) {
         User oldUser = userRepository.getUserById(userId);
         Course oldCourse = courseRepository.getCourseById(courseId);
-        oldUser.followCourse(oldCourse);
+        Follows follow = new Follows(oldUser,oldCourse);
+        oldUser.followCourse(follow);
         if(oldUser!=null && oldCourse!=null){
             userRepository.save(oldUser);
             return true;

@@ -2,6 +2,8 @@ package com.example.UserManagementSpringBoot.model.dto;
 
 public class CourseDto {
     private int id;
+    private String courseName;
+    private int fee;
 
     public CourseDto() {
     }
@@ -11,9 +13,6 @@ public class CourseDto {
         this.courseName = courseName;
         this.fee = fee;
     }
-
-    private String courseName;
-    private int fee;
 
     public int getId() {
         return id;

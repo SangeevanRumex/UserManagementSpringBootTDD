@@ -1,21 +1,23 @@
 package com.example.UserManagementSpringBoot.model.dto;
 
+import com.example.UserManagementSpringBoot.model.Follows;
+
 import java.util.Set;
 
 public class UserDto {
     private int id;
     private String userName;
     private String city;
-    private Set<CourseDto> followedCourses;
+    private Set<Follows> follows;
 
     public UserDto() {
     }
 
-    public UserDto(int id, String userName, String city, Set<CourseDto> followedCourses) {
+    public UserDto(int id, String userName, String city, Set<Follows> follows) {
         this.id = id;
         this.userName = userName;
         this.city = city;
-        this.followedCourses = followedCourses;
+        this.follows = follows;
     }
 
     public int getId() {
@@ -42,11 +44,11 @@ public class UserDto {
         this.city = city;
     }
 
-    public Set<CourseDto> getFollowedCourses() {
-        return followedCourses;
+    public Set<Follows> getfollows() {
+        return follows;
     }
 
-    public void setFollowedCourses(Set<CourseDto> followedCourses) {
-        this.followedCourses = followedCourses;
+    public void setfollows(Set<Follows> follows) {
+        this.follows = follows;
     }
 }

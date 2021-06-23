@@ -14,28 +14,22 @@ public class User {
     private String userName;
     private String city;
     private boolean deleted;
+    @OneToMany(targetEntity = Follows.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Follows> follows = new HashSet<>();
 
-    @ManyToMany(targetEntity = Course.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "course_follow",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id")
-    )
-    private Set<Course> followedCourses = new HashSet<>();
-
-    public void followCourse(Course course){
-        followedCourses.add(course);
+    public void followCourse(Follows follow){
+        follows.add(follow);
     }
 
     public User() {
     }
 
-    public User(int id, String userName, String city, boolean deleted, Set<Course> followedCourses) {
+    public User(int id, String userName, String city, boolean deleted, Set<Follows> follows) {
         this.id = id;
         this.userName = userName;
         this.city = city;
         this.deleted = deleted;
-        this.followedCourses = followedCourses;
+        this.follows = follows;
     }
 
     public int getId() {
@@ -70,11 +64,11 @@ public class User {
         this.deleted = deleted;
     }
 
-    public Set<Course> getFollowedCourses() {
-        return followedCourses;
+    public Set<Follows> getFollows() {
+        return follows;
     }
 
-    public void setFollowedCourses(Set<Course> followedCourses) {
-        this.followedCourses = followedCourses;
+    public void setFollows(Set<Follows> follows) {
+        this.follows = follows;
     }
 }

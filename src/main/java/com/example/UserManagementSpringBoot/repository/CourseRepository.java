@@ -10,14 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
-    @Query(value = "SELECT * FROM course WHERE deleted IS NOT TRUE", nativeQuery = true)
+    @Query("SELECT c FROM Course c WHERE c.deleted IS NOT TRUE")
     List<Course> getCourses();
 
-    @Query(value = "SELECT * FROM course WHERE id = :id AND deleted IS NOT TRUE", nativeQuery = true)
+    @Query("SELECT c FROM Course c WHERE c.id = :id AND c.deleted IS NOT TRUE")
     Course getCourseById(@Param("id")int id);
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE course SET deleted=TRUE WHERE id = :id", nativeQuery = true)
+    @Query("UPDATE Course c SET c.deleted=TRUE WHERE c.id = :id")
     void deleteCourse(@Param("id") int id);
 }

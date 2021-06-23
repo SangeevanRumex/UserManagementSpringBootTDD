@@ -15,10 +15,9 @@ public class Course {
     private String courseName;
     private int fee;
     private boolean deleted;
-
     @JsonIgnore
-    @ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "followedCourses")
-    private Set<User> follows = new HashSet<>();
+    @OneToMany(targetEntity = Follows.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "course")
+    private Set<Follows> follows = new HashSet<>();
 
     public Course() {
     }
@@ -62,11 +61,11 @@ public class Course {
         this.deleted = deleted;
     }
 
-    public Set<User> getFollows() {
+    public Set<Follows> getFollows() {
         return follows;
     }
 
-    public void setFollows(Set<User> follows) {
+    public void setFollows(Set<Follows> follows) {
         this.follows = follows;
     }
 }

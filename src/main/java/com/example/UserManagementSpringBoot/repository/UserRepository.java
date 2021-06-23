@@ -10,16 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-
-    @Query(value = "SELECT * FROM user WHERE deleted IS NOT TRUE", nativeQuery = true)
+    @Query("SELECT u FROM User u WHERE u.deleted IS NOT TRUE")
     List<User> getUsers();
 
-    @Query(value = "SELECT * FROM user WHERE id = :id AND deleted IS NOT TRUE", nativeQuery = true)
+    @Query("SELECT u FROM User u WHERE u.id = :id AND u.deleted IS NOT TRUE")
     User getUserById(@Param("id")int id);
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE user SET deleted=TRUE WHERE id = :id", nativeQuery = true)
+    @Query("UPDATE User u SET u.deleted=TRUE WHERE u.id = :id")
     void deleteUser(@Param("id") int id);
-
 }
